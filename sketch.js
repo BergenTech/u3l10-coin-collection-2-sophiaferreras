@@ -2,7 +2,7 @@
 let playerX, playerY;
 let coinX, coinY, coinCollected;
 let obstacleX, obstacleY, obstacleSpeed;
-let score = 0;
+let score = 0, hits = 0;
 let gameOver = false;
 
 function setup() {
@@ -131,7 +131,9 @@ function checkCollisions() {
 function displayStats() {
   fill(0);
   textSize(16);
-  text("Score: " + score, 10, 20);
+  text("Score: " + score, 1/5*width, 20);
+  text("Hits: " + hits, 2/5*width, 20);
+  text("Speed: " + obstacleSpeed, 3/5*width, 20);
   // TODO: Add display for hits and speed
 }
 
