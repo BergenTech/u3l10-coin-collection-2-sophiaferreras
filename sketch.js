@@ -21,7 +21,7 @@ function initializeGame() {
   // Initialize obstacle position
   obstacleX = 0;
   obstacleY = random(20, height-20);
-  obstacleSpeed = 0
+  obstacleSpeed = 0.5
 
   coinCollected = false
 }
@@ -90,14 +90,14 @@ function movePlayer() {
 }
 
 function moveObstacle() {
-  // TODO: Move obstacle from left to right
-    obstacleSpeed = 0.5
-    obstacleX += obstacleSpeed
+  // TODO: Move obstacle from left to right 
+  obstacleX += obstacleSpeed
   // HINT: Increase obstacleX by obstacleSpeed
   
   // TODO: Reset obstacle when it goes off screen
-  if (obstacleX+20 > width) {
-    obstacleY = random(width-20)
+  if (obstacleX > width) {
+    obstacleX = 0
+    obstacleY = random(height)
   }
   // HINT: Check if obstacleX > width
   // Reset to left side and new random Y position
@@ -105,11 +105,10 @@ function moveObstacle() {
 
 function checkCoinCollection() {
   // TODO: Check if player touches coin
-  if (dist(playerX, playerY, coinX, coinY) < 15 && !coinCollected){
-    coinCollected = true
+  if (dist(playerX, playerY, coinX, coinY) < 15){
     score++
-    obstacleSpeed += 0.5
     newCoin()
+    obstacleSpeed += 0.5
   }
   // HINT: Use dist(playerX, playerY, coinX, coinY)
   // If distance < 15:
@@ -127,7 +126,8 @@ function checkCollisions() {
     }
     playerX = width/2
     playerY = height - 20
-    obstacleY = random(width-20)
+    obstacleX = 0
+    obstacleY = random(height)
   }
   // HINT: Similar to coin collection
   // If hit (distance < 20):
@@ -147,7 +147,10 @@ function displayStats() {
 
 function displayGameOver() {
   // TODO: Show game over screen
-
+  textAlign(CENTER,CENTER)
+  text("Game Over", 200, 150)
+  text("Final Score: " + score, 200, 200)
+  text("Press R to Restart", 200, 250)
   // HINT: Use textAlign(CENTER, CENTER)
   // Show:
   //   - "Game Over" message
@@ -177,7 +180,6 @@ function keyPressed() {
   // TODO: Check for 'R' key to restart game
   if (key === 'r' || key === 'R' && gameOver == true){
     resetGame()
-
   }
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
