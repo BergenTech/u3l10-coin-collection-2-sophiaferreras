@@ -1,7 +1,7 @@
 // Game variables 
 let playerX, playerY;
 let coinX, coinY;
-let obstacleX, obstacleY;
+let obstacleX, obstacleY, obstacleSpeed;
 let score = 0;
 let gameOver = false;
 
@@ -21,6 +21,7 @@ function initializeGame() {
   // Initialize obstacle position
   obstacleX = 0;
   obstacleY = random(20, height-20);
+  obstacleSpeed = 0
 }
 
 function draw() {
@@ -82,16 +83,19 @@ function movePlayer() {
   // Movement should be 5 pixels per frame
   
   // TODO: Add boundary checking
-  if(playerX+20 >= 400 || playerX)
+  if(playerX+20 >= width || playerX-20 <= 0 || playerY+20 >= height || playerY <= 0) 
   // HINT: Keep player within canvas bounds
   // Check against 0, width, and height
 }
 
 function moveObstacle() {
   // TODO: Move obstacle from left to right
+    obstacleSpeed = 0.5
+    obstacleX += obstacleSpeed
   // HINT: Increase obstacleX by obstacleSpeed
   
   // TODO: Reset obstacle when it goes off screen
+  if ()
   // HINT: Check if obstacleX > width
   // Reset to left side and new random Y position
 }
