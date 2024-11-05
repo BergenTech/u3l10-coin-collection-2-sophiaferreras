@@ -97,7 +97,6 @@ function moveObstacle() {
   
   // TODO: Reset obstacle when it goes off screen
   if (obstacleX+20 > width) {
-    obstacleX = 0
     obstacleY = random(width-20)
   }
   // HINT: Check if obstacleX > width
@@ -109,8 +108,8 @@ function checkCoinCollection() {
   if (dist(playerX, playerY, coinX, coinY) < 15 && !coinCollected){
     coinCollected = true
     score++
-    newCoin()
     obstacleSpeed += 0.5
+    newCoin()
   }
   // HINT: Use dist(playerX, playerY, coinX, coinY)
   // If distance < 15:
@@ -121,6 +120,15 @@ function checkCoinCollection() {
 
 function checkCollisions() {
   // TODO: Check if player hits obstacle
+  if (dist(playerX, playerY, obstacleX, obstacleY) < 20) {
+    hits++
+    if (hits>=3) {
+      gameOver = true
+    }
+    playerX = width/2
+    playerY = height - 20
+    obstacleY = random(width-20)
+  }
   // HINT: Similar to coin collection
   // If hit (distance < 20):
   //   - Increase hits
@@ -139,6 +147,7 @@ function displayStats() {
 
 function displayGameOver() {
   // TODO: Show game over screen
+
   // HINT: Use textAlign(CENTER, CENTER)
   // Show:
   //   - "Game Over" message
@@ -154,6 +163,11 @@ function newCoin() {
 
 function resetGame() {
   // TODO: Reset all game variables
+  score = 0
+  hits = 0
+  obstacleSpeed = 0.5
+  gameOver = false
+  initializeGame()
   // HINT: Reset score, hits, speed
   // Set gameOver to false
   // Call initializeGame()
@@ -161,6 +175,10 @@ function resetGame() {
 
 function keyPressed() {
   // TODO: Check for 'R' key to restart game
+  if (key === 'r' || key === 'R' && gameOver == true){
+    resetGame()
+
+  }
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
 }
